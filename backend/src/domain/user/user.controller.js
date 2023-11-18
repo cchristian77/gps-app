@@ -5,6 +5,7 @@ import {authValidation, storeUserValidation} from "../../validation/user.validat
 import {validation} from "../../validation/validation.js";
 import UserService from "./user.service.js";
 import {authMiddleware} from "../../middleware/auth.js";
+import {getLoginResponseDTO, getUserDetailResponse} from "../../dto/user.dto.js";
 
 const userService = new UserService()
 
@@ -16,7 +17,7 @@ const register = async (req, res, next) => {
 
     return res.status(HTTPStatusCode.CREATED).json(new ApiResponse.Success(
       HTTPStatusCode.CREATED,
-      user,
+      getUserDetailResponse(user),
       "The requested data is successfully created."
     ))
   } catch (err) {
@@ -32,13 +33,7 @@ const login = async (req, res, next) => {
 
     return res.status(HTTPStatusCode.OK).json(new ApiResponse.Success(
       HTTPStatusCode.OK,
-      {
-        username: user.username,
-        email: user.email,
-        full_name: user.full_name,
-        role: user.role,
-        token: user.token
-      })
+      getLoginResponseDTO(user))
     )
   } catch (err) {
     next(err)
@@ -67,13 +62,9 @@ const show = async (req, res, next) => {
     const user = await userService.findById(req.authUser.id)
 
     return res.status(HTTPStatusCode.OK).json(new ApiResponse.Success(
-      HTTPStatusCode.OK,
-      {
-        username: user.username,
-        email: user.email,
-        full_name: user.full_name,
-        role: user.role
-      })
+        HTTPStatusCode.OK,
+        getUserDetailResponse((user))
+      )
     )
   } catch (err) {
     next(err)

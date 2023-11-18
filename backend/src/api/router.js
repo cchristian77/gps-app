@@ -1,5 +1,6 @@
-import UserController from "../domain/user/user.controller.js";
-// import {authMiddleware} from "../middleware/auth.js";
+import {authMiddleware} from "../middleware/auth.js"
+import UserController from "../domain/user/user.controller.js"
+import GpsController from "../domain/gps/gps.controller.js";
 
 export default function registerRouters(app) {
   app.get("/ping", (req, res) => {
@@ -7,4 +8,5 @@ export default function registerRouters(app) {
   })
 
   app.use("/users", UserController)
+  app.use("/gpses", GpsController)
 }

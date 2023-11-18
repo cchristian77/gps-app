@@ -19,10 +19,21 @@ export default class UserRepository {
     })
   }
 
+  async countByEmail(email) {
+    return this.db.user.count({
+      where: {
+        email: email
+      }
+    })
+  }
+
   async findByUsername(username) {
     return this.db.user.findFirst({
       where: {
-        username: username
+        OR: [
+          {username: username},
+          {email: username},
+        ]
       },
     })
   }
