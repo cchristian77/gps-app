@@ -1,24 +1,18 @@
 import express from "express";
 import {HTTPStatusCode} from "../../helper/status.code.js";
 import ApiResponse from "../../helper/api.response.js";
-import {validation} from "../../validation/validation.js";
-import {authMiddleware} from "../../middleware/auth.js";
 import GpsService from "./gps.service.js";
 import {getGPSDetailResponseDTO, getGpsIndexResponseDTO} from "../../dto/gps.dto.js";
-import Pagination from "../../helper/pagination.js";
 
 const gpsService = new GpsService()
 
 const index = async (req, res, next) => {
   try {
-    const gpses = await gpsService.findAll(req)
+    const { gpses, pagination } = await gpsService.findAll(req)
 
-    let pagination = new Pagination(parseInt(req.query.page), parseInt(req.query.per_page))
-
-    return res.status(HTTPStatusCode.OK).json(new ApiResponse.Success(
-      HTTPStatusCode.OK,
-      getGpsIndexResponseDTO(gpses, pagination)
-    ))
+    return res.status(HTTPStatusCode.OK).json(
+      new ApiResponse.DataPagination(getGpsIndexResponseDTO(gpses), pagination.getMeta())
+    )
   } catch (err) {
     next(err)
   }

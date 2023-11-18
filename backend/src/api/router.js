@@ -8,5 +8,5 @@ export default function registerRouters(app) {
   })
 
   app.use("/users", UserController)
-  app.use("/gpses", GpsController)
+  app.use("/gpses", authMiddleware, GpsController)
 }
