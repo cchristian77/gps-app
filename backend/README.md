@@ -16,6 +16,10 @@
    ```bash
    npx prisma migrate dev
 
-5. Run application
+5. Run seeder
+    ```bash
+    npx prisma db seed
+
+6. Run application
    ```bash
    npm run dev
