@@ -35,5 +35,5 @@ services:
 
 
 volumes:
-  delivery_tracker_vol:
+  gps_be_vol:
     name: gps_be_vol
