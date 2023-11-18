@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  postgres_db:
+    image: "postgres:14.7"
+    ports:
+      - "5432:${DB_PORT}"
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - type: volume
+        source: gps_be_vol
+        target: "/var/lib/postgresql/data"
+        read_only: false
+    env_file:
+      - .env
+
+#  pgadmin is used as database client for postgres SQL
+#  uncomment this service if you want to use pgadmin
+#  pgadmin:
+#    image: 'dpage/pgadmin4:latest'
+#    environment:
+#      - PGADMIN_DEFAULT_EMAIL=admin@domain.com
+#      - PGADMIN_DEFAULT_PASSWORD=password
+#    ports:
+#      - "5050:80"
+#    depends_on:
+#      - postgres_db
+
+
+volumes:
+  delivery_tracker_vol:
+    name: gps_be_vol
