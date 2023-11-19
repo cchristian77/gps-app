@@ -52,23 +52,22 @@ export class RegisterComponent {
     return this.registerForm.controls['confirmPassword'];
   }
 
-  submit() {
+  async submit() {
     this.loading = true
 
     const data = {...this.registerForm.value}
     delete data.confirmPassword
 
-    this.apiService.register(data as User).subscribe(
-      response => {
+    await this.apiService.register(data as User)
+      .then((response) => {
         this.messageService.add({severity: 'success', summary: 'Success', detail: 'Register success !'});
         this.router.navigate(['login'])
-      },
-      error => {
+      })
+      .catch((error) => {
         console.log(error)
-        this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.message });
-      },
-      () => this.loading = false
-    )
+        this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.message});
+      })
+      .finally(() => this.loading = false)
   }
 
 }

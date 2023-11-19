@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {ApiService} from "../../services/api.service";
 import {User} from "../../interfaces/auth";
 import {MessageService} from "primeng/api";
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 import {CookieService} from "../../services/cookie.service";
 
 @Component({
@@ -36,26 +36,28 @@ export class LoginComponent {
     private cookieService: CookieService,
   ) { }
 
-  login() {
+  async login() {
     this.loading = true
 
-    const data  = { ...this.loginForm.value }
+    const data = {...this.loginForm.value}
 
-    this.apiService.login(data as User).subscribe(
-      (response: any) => {
+    await this.apiService.login(data as User)
+      .then((response: any) => {
         this.cookieService.setCookie({
           name: "token",
           value: response.data.token,
           session: true,
         })
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login success !' });
+        this.messageService.add({severity: 'success', summary: 'Success', detail: 'Login success !'});
         this.router.navigate(['/gps']);
-        },
-      error => {
+      })
+      .catch((error) => {
         console.log(error)
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.message || "There is something is wrong." });
-      },
-      () => this.loading = false
-    )
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: error.error.message || "There is something is wrong."
+        });
+      }).finally(() => this.loading = false)
   }
 }

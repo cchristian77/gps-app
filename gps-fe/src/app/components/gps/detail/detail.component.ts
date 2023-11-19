@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {ApiService} from "../../../services/api.service";
 import {MessageService} from "primeng/api";
 import * as moment from "moment";
+import {GpsDetail} from "../../../interfaces/gps";
 
 @Component({
   selector: 'app-detail',
@@ -59,10 +60,10 @@ export class DetailComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.apiService.getGpsDetail(this.id)
-      .then((response: any) => {
-        this.gps = response.data
+  async ngOnInit() {
+    await this.apiService.getGpsDetail(this.id)
+      .then((response: GpsDetail) => {
+        this.gps = response
         this.initChart()
       })
       .catch((error) => {
