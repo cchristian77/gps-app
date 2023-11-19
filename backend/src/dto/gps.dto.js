@@ -1,4 +1,5 @@
 const gpsIndexDTO = (gps) => ({
+  id: gps.uuid,
   device_id: gps.code,
   device_type: gps.deviceType.name,
   latest_timestamp: gps.locations.length > 0 ? gps.locations[0].timestamp : null,
@@ -36,7 +37,7 @@ const getGPSDetailResponseDTO = (gps) => {
 
   totalDuration *= 5
   return {
-    uuid: gps.uuid,
+    id: gps.uuid,
     device_id: gps.code,
     device_type: gps.deviceType.name,
     locations: groupedLocations.map((location) => {

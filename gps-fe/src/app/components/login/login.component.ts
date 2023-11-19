@@ -49,7 +49,7 @@ export class LoginComponent {
           session: true,
         })
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login success !' });
-        this.router.navigate(['/summary']);
+        this.router.navigate(['/gps']);
         },
       error => {
         console.log(error)

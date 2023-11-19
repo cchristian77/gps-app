@@ -53,11 +53,24 @@ export class ApiService {
     });
   }
 
-  getGpsIndex() {
-    return this.http.get<any>(`${this.apiUrl}/gpses`, this.requestHeaders)
-      .toPromise()
-      .then(response => response)
-      .catch(error => error)
+  async getGpsIndex() {
+    try {
+      let response = await this.http.get<any>(`${this.apiUrl}/gpses`, this.requestHeaders)
+        .toPromise();
+      return await response;
+    } catch (error) {
+      return await error;
+    }
+  }
+
+  async getGpsDetail(id: string | null) {
+    try {
+      let response = await this.http.get<any>(`${this.apiUrl}/gpses/${id}`, this.requestHeaders)
+        .toPromise();
+      return await response;
+    } catch (error) {
+      return await error;
+    }
   }
 
   logout() {

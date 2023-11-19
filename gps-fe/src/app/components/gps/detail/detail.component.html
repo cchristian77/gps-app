@@ -1,1 +1,40 @@
-<p>detail works!</p>
+<div class="grid">
+  <div class="col-7">
+    <div class="card p-fluid">
+      <h5>GPS Details</h5>
+      <div class="field grid">
+        <label class="col-12 mb-2 md:col-2 md:mb-0">Device ID</label>
+        <div class="col-12 md:col-10">
+          <input pInputText type="text" value="{{ gps.device_id}}" readonly/>
+        </div>
+      </div>
+      <div class="field grid">
+        <label class="col-12 mb-2 md:col-2 md:mb-0">Device Type</label>
+        <div class="col-12 md:col-10">
+          <input pInputText type="text" value="{{ gps.device_type }}" readonly/>
+        </div>
+      </div>
+      <h5>Location History</h5>
+      <p-fieldset legend="Location {{ location.name }}" [toggleable]="true" *ngFor="let location of gps.locations">
+        <ul *ngFor="let timestamp of location.timestamps">
+          <li>{{ moment(timestamp).format("DD MMMM yyyy HH:mm") }}</li>
+        </ul>
+      </p-fieldset>
+    </div>
+  </div>
+
+  <div class="col-5">
+    <div class="card flex flex-column align-items-center">
+      <h5>Dashboard</h5>
+      <p-chart
+        type="pie"
+        [data]="pieData"
+        [options]="pieOptions"
+        height="50vh"
+        width="30vw"
+      />
+    </div>
+  </div>
+</div>
+
+

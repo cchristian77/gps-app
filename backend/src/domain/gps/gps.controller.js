@@ -20,7 +20,7 @@ const index = async (req, res, next) => {
 
 const show = async (req, res, next) => {
   try {
-    const gps = await gpsService.findByCode(req.params.code)
+    const gps = await gpsService.findByUuid(req.params.uuid)
 
     return res.status(HTTPStatusCode.OK).json(new ApiResponse.Success(
       HTTPStatusCode.OK,
@@ -33,6 +33,6 @@ const show = async (req, res, next) => {
 
 const router = new express.Router()
 router.get("/", index)
-router.get("/:code", show)
+router.get("/:uuid", show)
 
 export default router

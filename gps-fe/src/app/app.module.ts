@@ -16,6 +16,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageService } from 'primeng/api';
 import { DetailComponent } from './components/gps/detail/detail.component';
 import {TableModule} from "primeng/table";
+import {RippleModule} from "primeng/ripple";
+import { ChartModule } from 'primeng/chart';
+import {FieldsetModule} from "primeng/fieldset";
 
 @NgModule({
   declarations: [
@@ -23,7 +26,7 @@ import {TableModule} from "primeng/table";
     LoginComponent,
     SummaryComponent,
     RegisterComponent,
-    DetailComponent
+    DetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,10 @@ import {TableModule} from "primeng/table";
     HttpClientModule,
     ToastModule,
     BrowserAnimationsModule,
-    TableModule
+    TableModule,
+    RippleModule,
+    ChartModule,
+    FieldsetModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]
