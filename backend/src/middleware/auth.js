@@ -6,8 +6,13 @@ import {verifyToken} from "../helper/token.js";
 const userRepository = new UserRepository()
 const authentication = (roles) => {
   return async (req, res, next) => {
-    const token = req.headers.authorization.split(' ')[1];
+    if (req.headers.authorization === undefined || req.headers.authorization === null) {
+      return res.status(HTTPStatusCode.UNAUTHORIZED).json(
+        new ApiResponse.Error(HTTPStatusCode.UNAUTHORIZED, "Unauthorized.")
+      )
+    }
 
+    const token = req.headers.authorization.split(' ')[1];
     if (!token) {
       return res.status(HTTPStatusCode.UNAUTHORIZED).json(
         new ApiResponse.Error(HTTPStatusCode.UNAUTHORIZED, "Unauthorized.")
