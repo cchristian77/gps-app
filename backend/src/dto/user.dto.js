@@ -1,4 +1,5 @@
 const getLoginResponseDTO = (user) => ({
+  id: user.uuid,
   username: user.username,
   email: user.email,
   full_name: user.full_name,
