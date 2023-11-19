@@ -48,8 +48,7 @@ export class SummaryComponent implements OnInit {
     private apiService: ApiService,
     private messageService: MessageService,
     private cookieService: CookieService
-  ) {
-  }
+  ) { }
 
   // logout() {
   //   this.apiService.logout().subscribe(
@@ -72,6 +71,10 @@ export class SummaryComponent implements OnInit {
 
   onSearch(table: Table, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+  }
+
+  viewDetail(id: string) {
+    this.router.navigate(['/gps', id]);
   }
 
 }

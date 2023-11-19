@@ -61,7 +61,13 @@ export default class GpsRepository {
 
   async findByCode(code) {
     return this.db.gps.findUnique({
-      where: {code},
+      where: {code}
+    })
+  }
+
+  async findByUuid(uuid) {
+    return this.db.gps.findFirst({
+      where: {uuid},
       include: {
         deviceType: true,
         locations: {
