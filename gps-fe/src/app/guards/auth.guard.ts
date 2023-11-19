@@ -7,7 +7,7 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   const cookieService: CookieService = inject(CookieService)
 
-  if (cookieService.getCookie('token')) {
+  if (cookieService.getCookie('token') !== '') {
     return true;
   } else {
     const router = inject(Router);

@@ -30,6 +30,8 @@ export class RegisterComponent {
     private router: Router
   ) { }
 
+  loading: boolean = false;
+
   get fullName() {
     return this.registerForm.controls['fullName'];
   }
@@ -51,6 +53,8 @@ export class RegisterComponent {
   }
 
   submit() {
+    this.loading = true
+
     const data = {...this.registerForm.value}
     delete data.confirmPassword
 
@@ -62,7 +66,8 @@ export class RegisterComponent {
       error => {
         console.log(error)
         this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.message });
-      }
+      },
+      () => this.loading = false
     )
   }
 

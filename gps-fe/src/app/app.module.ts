@@ -4,7 +4,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './components/login/login.component';
-import {SummaryComponent} from './components/summary/summary.component';
+import {SummaryComponent} from './components/gps/index/summary.component';
 import {RegisterComponent} from './components/register/register.component';
 import {CardModule} from "primeng/card";
 import {InputTextModule} from "primeng/inputtext";
@@ -14,13 +14,16 @@ import {HttpClientModule} from "@angular/common/http";
 import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageService } from 'primeng/api';
+import { DetailComponent } from './components/gps/detail/detail.component';
+import {TableModule} from "primeng/table";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SummaryComponent,
-    RegisterComponent
+    RegisterComponent,
+    DetailComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,8 @@ import { MessageService } from 'primeng/api';
     ButtonModule,
     HttpClientModule,
     ToastModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    TableModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

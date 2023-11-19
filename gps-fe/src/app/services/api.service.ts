@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {User} from "../interfaces/auth";
 import {CookieService} from "./cookie.service";
 import {throwError} from "rxjs";
+import {GpsIndex} from "../interfaces/gps";
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,13 @@ export class ApiService {
       username: user.username,
       password: user.password
     });
+  }
+
+  getGpsIndex() {
+    return this.http.get<any>(`${this.apiUrl}/gpses`, this.requestHeaders)
+      .toPromise()
+      .then(response => response)
+      .catch(error => error)
   }
 
   logout() {

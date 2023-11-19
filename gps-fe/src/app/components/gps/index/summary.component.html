@@ -1,0 +1,76 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="card">
+      <h5>Filter Menu</h5>
+      <p-table
+        #dt1
+        [value]="gpses"
+        [tableStyle]="{ 'min-width': '60rem' }"
+        [paginator]="true"
+        [rows]="5"
+        [showCurrentPageReport]="true"
+        [globalFilterFields]="['device_id','device_type']"
+        dataKey="device_id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        responsiveLayout="scroll"
+      >
+        <ng-template pTemplate="caption">
+          <div class="flex">
+            <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
+                    (click)="clear(dt1)"></button>
+            <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" placeholder="Search keyword" #filter (input)="onSearch(dt1, $event)"/>
+            </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="device_id" style="width:20%">
+              Device ID
+              <p-sortIcon field="name"/>
+            </th>
+            <th pSortableColumn="device_type" style="width:20%">
+              Device Type
+              <p-sortIcon field="device_type"/>
+            </th>
+            <th pSortableColumn="latest_timestamp" style="width:35%">
+              Timestamp
+              <p-sortIcon field="latest_timestamp"/>
+            </th>
+            <th pSortableColumn="latest_location" style="width:20%">
+              Location
+              <p-sortIcon field="latest_location"/>
+            </th>
+            <th style="width:5%"></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-gps>
+          <tr>
+            <td>{{ gps.device_id }}</td>
+            <td>
+              <span [class]="'device-type type-' + gps.device_type.toLowerCase()">
+                {{ gps.device_type }}
+              </span>
+            </td>
+            <td>{{ gps.latest_timestamp }}</td>
+            <td>{{ gps.latest_location }}</td>
+            <td>
+              <button pButton pRipple icon="pi pi-eye" class="p-button-rounded"></button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="4">No GPSs found.</td>
+          </tr>
+        </ng-template>
+        <ng-template [ngIf]="loading" pTemplate="loadingbody">
+          <tr>
+            <td colspan="4">Loading GPSs data. Please wait.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

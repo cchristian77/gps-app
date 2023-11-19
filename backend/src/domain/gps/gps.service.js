@@ -1,12 +1,15 @@
 import GpsRepository from "./gps.repository.js";
 import Errors from "../../helper/errors.js";
-import Pagination from "../../helper/pagination.js";
+import Pagination, {DEFAULT_PAGINATION} from "../../helper/pagination.js";
 
 const gpsRepository = new GpsRepository()
 
 export default class GpsService {
   async findAll(request) {
-    let pagination = new Pagination(parseInt(request.query.page), parseInt(request.query.per_page))
+    const page = parseInt(request.query.page || DEFAULT_PAGINATION.PAGE)
+    const perPage = parseInt(request.query.page || DEFAULT_PAGINATION.PER_PAGE)
+
+    let pagination = new Pagination(page, perPage)
 
     const { gpses, total } = await gpsRepository.findAll(pagination, request.query.search)
 

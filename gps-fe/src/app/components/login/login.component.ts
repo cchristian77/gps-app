@@ -11,11 +11,14 @@ import {CookieService} from "../../services/cookie.service";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
 export class LoginComponent {
   loginForm = this.fb.group({
     username: ['', [Validators.required]],
-    password: ['', [Validators.required]]
+    password: ['', [Validators.required]],
   })
+
+  loading: boolean = false;
 
   get username() {
     return this.loginForm.controls['username'];
@@ -34,6 +37,8 @@ export class LoginComponent {
   ) { }
 
   login() {
+    this.loading = true
+
     const data  = { ...this.loginForm.value }
 
     this.apiService.login(data as User).subscribe(
@@ -45,11 +50,12 @@ export class LoginComponent {
         })
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login success !' });
         this.router.navigate(['/summary']);
-      },
+        },
       error => {
         console.log(error)
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.message || "There is something is wrong." });
-      }
+      },
+      () => this.loading = false
     )
   }
 }
