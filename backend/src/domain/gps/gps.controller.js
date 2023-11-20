@@ -6,6 +6,17 @@ import {getGPSDetailResponseDTO, getGpsIndexResponseDTO} from "../../dto/gps.dto
 
 const gpsService = new GpsService()
 
+/**
+ * Retrieves a paginated list of GPS data.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @param {Function} next - The next middleware function.
+ *
+ * @returns {Promise} A promise that resolves to the response status and data.
+ *
+ * @throws {Error} If an error occurs while fetching the GPS data.
+ */
 const index = async (req, res, next) => {
   try {
     const { gpses, pagination } = await gpsService.findAll(req)
@@ -18,6 +29,15 @@ const index = async (req, res, next) => {
   }
 }
 
+/**
+ * retrieve and display GPS details.
+ *
+ * @param {Object} req - The HTTP request object.
+ * @param {Object} res - The HTTP response object.
+ * @param {Function} next - The next middleware function.
+ *
+ * @returns {Promise} - A promise that resolves to the response sent back to the client.
+ */
 const show = async (req, res, next) => {
   try {
     const gps = await gpsService.findByUuid(req.params.uuid)
@@ -31,6 +51,11 @@ const show = async (req, res, next) => {
   }
 }
 
+/**
+ * a router instance
+ *
+ * @memberof express
+ */
 const router = new express.Router()
 router.get("/", index)
 router.get("/:uuid", show)

@@ -9,6 +9,17 @@ import {getLoginResponseDTO, getUserDetailResponse} from "../../dto/user.dto.js"
 
 const userService = new UserService()
 
+/**
+ * Registers a new user.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @param {Function} next - The next function.
+ *
+ * @returns {object} - The HTTP response object.
+ *
+ * @throws {Error} - If an error occurs during the registration process.
+ */
 const register = async (req, res, next) => {
   try {
     const request = validation(storeUserValidation, req.body)
@@ -25,6 +36,18 @@ const register = async (req, res, next) => {
   }
 }
 
+/**
+ * User login request
+ *
+ * @async
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ * @param {Function} next - The next middleware function
+ *
+ * @returns {object} - The HTTP response object.
+ *
+ * @throws {Error} If an error occurs during the login process
+ */
 const login = async (req, res, next) => {
   try {
     const request = validation(authValidation, req.body)
@@ -40,6 +63,17 @@ const login = async (req, res, next) => {
   }
 }
 
+/**
+ * Logs out the authenticated user.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @param {Function} next - The next middleware function.
+ *
+ * @returns {object} - The HTTP response object.
+ *
+ * @throws {Error} - If there is an error during the logout process.
+ */
 const logout = async (req, res, next) => {
 
   try {
@@ -56,6 +90,17 @@ const logout = async (req, res, next) => {
 
 }
 
+/**
+ * shows the user details.
+ *
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @param {Function} next - The next middleware function.
+ *
+ * @returns {object} - The HTTP response object.
+ *
+ * @throws {Error} - If there is an error while retrieving the user details.
+ */
 const show = async (req, res, next) => {
 
   try {
@@ -72,6 +117,18 @@ const show = async (req, res, next) => {
 
 }
 
+/**
+ * Updates the user data.
+ *
+ * @async
+ * @param {object} req - The request object.
+ * @param {object} res - The response object.
+ * @param {function} next - The next function.
+ *
+ * @returns {object} - The HTTP response object.
+ *
+ * @throws {Error} - If an error occurs while updating the user data.
+ */
 const update = async (req, res, next) => {
 
   try {
@@ -92,6 +149,11 @@ const update = async (req, res, next) => {
 
 }
 
+/**
+ * a router instance
+ *
+ * @memberof express
+ */
 const router = new express.Router()
 router.post("/register", register)
 router.post("/login", login)

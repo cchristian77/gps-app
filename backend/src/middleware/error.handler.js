@@ -2,6 +2,15 @@ import {HTTPStatusCode} from "../helper/status.code.js";
 import Errors from "../helper/errors.js";
 import ApiResponse from "../helper/api.response.js";
 
+
+/**
+ * Implements centralized error handler middleware
+ *
+ * @param err
+ * @param req
+ * @param res
+ * @param next
+ */
 export const errorHandler = (err, req, res, next) => {
   if (!err) {
     next()
