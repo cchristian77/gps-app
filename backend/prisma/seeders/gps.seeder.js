@@ -1,8 +1,5 @@
 import {v4 as uuid} from "uuid";
 
-const day = 31
-const month = 8
-const year = 2022
 const gpsData = [
   {
     uuid: uuid(),
@@ -15,23 +12,23 @@ const gpsData = [
     locations: {
       create: [
         {
-          timestamp: new Date(year, month, day, 10, 5),
+          timestamp: `2023-08-31T10:05:00.000Z`,
           location: {connect: {name: "L1"}}
         },
         {
-          timestamp: new Date(year, month, day, 10, 10),
+          timestamp: `2023-08-31T10:10:00.000Z`,
           location: {connect: {name: "L1"}}
         },
         {
-          timestamp: new Date(year, month, day, 10, 15),
+          timestamp: `2023-08-31T10:15:00.000Z`,
           location: {connect: {name: "L1"}}
         },
         {
-          timestamp: new Date(year, month, day, 10, 20),
+          timestamp: `2023-08-31T10:20:00.000Z`,
           location: {connect: {name: "L1"}}
         },
         {
-          timestamp: new Date(year, month, day, 10, 25),
+          timestamp: `2023-08-31T10:25:00.000Z`,
           location: {connect: {name: "L2"}}
         },
       ],
@@ -48,23 +45,23 @@ const gpsData = [
     locations: {
       create: [
         {
-          timestamp: new Date(year, month, day, 10, 5),
+          timestamp: `2023-08-31T10:05:00.000Z`,
           location: {connect: {name: "L3"}}
         },
         {
-          timestamp: new Date(year, month, day, 10, 10),
+          timestamp: `2023-08-31T10:10:00.000Z`,
           location: {connect: {name: "L3"}}
         },
         {
-          timestamp: new Date(year, month, day, 10, 15),
+          timestamp: `2023-08-31T10:15:00.000Z`,
           location: {connect: {name: "L3"}}
         },
         {
-          timestamp: new Date(year, month, day, 10, 20),
+          timestamp: `2023-08-31T10:20:00.000Z`,
           location: {connect: {name: "L3"}}
         },
         {
-          timestamp: new Date(year, month, day, 10, 25),
+          timestamp: `2023-08-31T10:25:00.000Z`,
           location: {connect: {name: "L3"}}
         },
       ],
@@ -81,19 +78,19 @@ const gpsData = [
     locations: {
       create: [
         {
-          timestamp: new Date(year, month, day, 10, 15),
+          timestamp: `2023-08-31T10:15:00.000Z`,
           location: {connect: {name: "L4"}}
         },
         {
-          timestamp: new Date(year, month, day, 10, 20),
+          timestamp: `2023-08-31T10:20:00.000Z`,
           location: {connect: {name: "L4"}}
         },
         {
-          timestamp: new Date(year, month, day, 10, 30),
+          timestamp: `2023-08-31T10:30:00.000Z`,
           location: {connect: {name: "L1"}}
         },
         {
-          timestamp: new Date(year, month, day, 10, 35),
+          timestamp: `2023-08-31T10:35:00.000Z`,
           location: {connect: {name: "L1"}}
         },
       ],
@@ -110,7 +107,7 @@ const gpsData = [
     locations: {
       create: [
         {
-          timestamp: new Date(year, month, day, 10, 35),
+          timestamp: `2023-08-31T10:35:00.000Z`,
           location: {connect: {name: "L5"}}
         },
       ],
@@ -127,7 +124,28 @@ const gpsData = [
     locations: {
       create: [
         {
-          timestamp: new Date(year, month, day, 10, 35),
+          timestamp: `2023-08-31T10:35:00.000Z`,
+          location: {connect: {name: "L6"}}
+        },
+      ],
+    }
+  },
+  {
+    uuid: uuid(),
+    code: "D-1572",
+    deviceType: {
+      connect: {
+        name: "Asset"
+      }
+    },
+    locations: {
+      create: [
+        {
+          timestamp: `2023-08-31T10:35:00.000Z`,
+          location: {connect: {name: "L6"}}
+        },
+        {
+          timestamp: `2023-08-31T10:40:00.000Z`,
           location: {connect: {name: "L6"}}
         },
       ],
