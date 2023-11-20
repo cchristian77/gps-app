@@ -1,0 +1,22 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="navbar">
+      <span class="device-type">GPS Application</span>
+      <div
+        class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-5"
+      >
+        <div></div>
+        <button
+          *ngIf="cookieService.getCookie('token')"
+          pButton
+          type="button"
+          class="p-button p-button-danger"
+          label="Sign out"
+          (click)="logout()"
+        ></button>
+      </div>
+      <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+      </div>
+    </div>
+  </div>
+</div>
