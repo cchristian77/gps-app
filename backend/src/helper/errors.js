@@ -8,7 +8,6 @@ class BaseError extends Error {
   }
 }
 
-
 class NotFoundError extends BaseError {
   constructor(message = 'The requested data not found.') {
     super(HTTPStatusCode.NOT_FOUND, message);

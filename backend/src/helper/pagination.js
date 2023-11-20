@@ -1,5 +1,9 @@
 export default class Pagination {
-  constructor(page = 1, perPage = 10, total = 0) {
+  constructor(
+    page = DEFAULT_PAGINATION.PAGE, 
+    perPage = DEFAULT_PAGINATION.PER_PAGE, 
+    total = 0
+  ) {
     this.page = page
     this.perPage = perPage
     this.total = total

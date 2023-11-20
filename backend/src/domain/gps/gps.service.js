@@ -19,7 +19,6 @@ export default class GpsService {
   }
 
   async findByUuid(uuid) {
-    // encrypt password before storing to database
     const gps = await gpsRepository.findByUuid(uuid)
     if (!gps) {
       throw new Errors.NotFoundError()
