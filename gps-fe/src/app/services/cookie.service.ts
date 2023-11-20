@@ -7,15 +7,11 @@ import {User} from "../interfaces/auth";
 })
 export class CookieService {
 
-  private authUserObject = new BehaviorSubject<User | null>(null);
+  authUserObject = new BehaviorSubject<User | null>(null);
   public authUser$ = this.authUserObject.asObservable()
 
   public setAuthUser(user: User | null) {
     this.authUserObject.next(user);
-  }
-
-  public getAuthUser() {
-    return this.authUserObject.getValue();
   }
 
   constructor() {}

@@ -6,6 +6,7 @@ import {GpsIndex} from "../interfaces/gps";
 import {Pagination} from "../interfaces/pagination";
 import * as moment from "moment/moment";
 import {MessageService} from "primeng/api";
+import {User} from "../interfaces/auth";
 
 const cookieService = CookieService
 export const authGuard: CanActivateFn = async (route, state) => {
@@ -19,7 +20,7 @@ export const authGuard: CanActivateFn = async (route, state) => {
     await apiService.profile()
       .then((response: any) => {
         success = true
-        cookieService.setAuthUser(response.data)
+        cookieService.setAuthUser(response.data as User)
       })
       .catch((error) => {
         console.log(error)

@@ -1,24 +1,2 @@
-.device-type {
-  border-radius: var(--border-radius);
-  padding: .25em .5rem;
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: .3px;
 
-  &.type-aircraft {
-    background: #B3E5FC;
-    color: #23547B
-  }
-
-  &.type-personal {
-    background: #C8E6C9;
-    color: #256029;
-  }
-
-  &.type-asset {
-    background: #FFD8B2;
-    color: #805B36;
-  }
-}
 

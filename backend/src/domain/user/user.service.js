@@ -34,6 +34,8 @@ export default class UserService {
   }
 
   async login(request) {
+    request.username = request.username.trim().toLowerCase()
+
     const user = await userRepository.findByUsername(request.username)
     if (!user) {
       throw new Errors.InvalidCredentialError()

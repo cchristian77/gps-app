@@ -20,6 +20,7 @@ import {RippleModule} from "primeng/ripple";
 import { ChartModule } from 'primeng/chart';
 import {FieldsetModule} from "primeng/fieldset";
 import {PaginatorModule} from "primeng/paginator";
+import { NavbarComponent } from './components/layout/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {PaginatorModule} from "primeng/paginator";
     SummaryComponent,
     RegisterComponent,
     DetailComponent,
+    NavbarComponent,
   ],
     imports: [
       BrowserModule,
