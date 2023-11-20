@@ -16,32 +16,16 @@ import * as moment from 'moment';
 export class SummaryComponent implements OnInit {
   gpses: GpsIndex[] = [];
 
-  pagination: Pagination = {};
+  pagination: any = {};
+
+  page: number = 1
+  perPage: number = 5
 
   loading: boolean = false
 
+  first: any = 0;
+
   @ViewChild('filter') filter!: ElementRef;
-
-  ngOnInit() {
-    this.loading = true
-
-    this.apiService.getGpsIndex()
-      .then((response: any) => {
-        this.gpses = response.data.data as GpsIndex[];
-        this.pagination = response.data.meta as Pagination;
-
-        // @ts-ignore
-        this.gpses.forEach(
-          gps => gps.latest_timestamp = moment(gps.latest_timestamp).format("DD MMMM yyyy HH:mm"))
-      })
-      .catch((error) => {
-        console.log(error)
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error?.message || "There is something is wrong." });
-      })
-      .finally(
-        () => this.loading = false
-      )
-  }
 
   constructor(
     private router: Router,
@@ -50,19 +34,53 @@ export class SummaryComponent implements OnInit {
     private cookieService: CookieService
   ) { }
 
-  // logout() {
-  //   this.apiService.logout().subscribe(
-  //     response => {
-  //       this.cookieService.deleteCookie('token')
-  //       this.router.navigate(['/login']);
-  //       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Logout Success !' });
-  //     },
-  //     error => {
-  //       console.log(error)
-  //       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error?.message || "There is something is wrong." });
-  //     }
-  //   )
-  // }
+  async ngOnInit() {
+    this.loading = true
+
+    await this.getGpsIndex()
+  }
+
+  getGpsIndex = async () => {
+    this.loading = true
+
+    await this.apiService.getGpsIndex(this.page, this.perPage)
+      .then((response: any) => {
+        this.gpses = response.data.data as GpsIndex[];
+        this.pagination = response.meta as Pagination;
+
+        // @ts-ignore
+        this.gpses.forEach(
+          gps => gps.latest_timestamp = moment(gps.latest_timestamp).format("DD MMMM yyyy HH:mm"))
+      })
+      .catch((error) => {
+        console.log(error)
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: error.error?.message || "There is something is wrong."
+        });
+      })
+      .finally(
+        () => this.loading = false
+      )
+  }
+
+  async logout() {
+    await this.apiService.logout().then((response) => {
+      this.cookieService.deleteCookie('token')
+      this.cookieService.setAuthUser(null)
+      this.router.navigate(['/login']);
+      this.messageService.add({severity: 'success', summary: 'Success', detail: 'Logout Success !'});
+    }).catch((error) => {
+        console.log(error)
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: error.error?.message || "There is something is wrong."
+        });
+      }
+    )
+  }
 
   clear(table: Table) {
     table.clear();
@@ -75,6 +93,13 @@ export class SummaryComponent implements OnInit {
 
   viewDetail(id: string) {
     this.router.navigate(['/gps', id]);
+  }
+
+  async onPageChange(event: any) {
+    this.first = event.first;
+    this.page = event.page + 1
+
+    await this.getGpsIndex()
   }
 
 }

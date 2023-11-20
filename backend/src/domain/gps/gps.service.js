@@ -7,7 +7,7 @@ const gpsRepository = new GpsRepository()
 export default class GpsService {
   async findAll(request) {
     const page = parseInt(request.query.page || DEFAULT_PAGINATION.PAGE)
-    const perPage = parseInt(request.query.page || DEFAULT_PAGINATION.PER_PAGE)
+    const perPage = parseInt(request.query.per_page || DEFAULT_PAGINATION.PER_PAGE)
 
     let pagination = new Pagination(page, perPage)
 

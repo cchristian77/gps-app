@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {User} from "../interfaces/auth";
 import {CookieService} from "./cookie.service";
-import {throwError} from "rxjs";
 import {GpsDetail, GpsIndex} from "../interfaces/gps";
 
 @Injectable({
@@ -11,13 +10,13 @@ import {GpsDetail, GpsIndex} from "../interfaces/gps";
 export class ApiService {
 
   private apiUrl = 'http://localhost:9000'
-  private requestHeaders = {
+  private getRequestHeaders = () => ({
     headers:
       new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.cookieService.getCookie('token')}`
       })
-  };
+  })
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
@@ -38,20 +37,20 @@ export class ApiService {
   // };
 
   async register(user: User) {
-    return await this.http.post(`${this.apiUrl}/users/register`, {
+    return this.http.post(`${this.apiUrl}/users/register`, {
       email: user.email,
       username: user.username,
       password: user.password,
       full_name: user.fullName,
       role: "USER"
-    }, this.requestHeaders)
+    }, this.getRequestHeaders())
       .toPromise()
       .then(response => response)
       .catch(error => Promise.reject(error));
   }
 
   async login(user: User) {
-    return await this.http.post(`${this.apiUrl}/users/login`, {
+    return this.http.post(`${this.apiUrl}/users/login`, {
       username: user.username,
       password: user.password
     })
@@ -60,21 +59,39 @@ export class ApiService {
       .catch(error => Promise.reject(error));
   }
 
-  async getGpsIndex() {
-    return await this.http.get<any>(`${this.apiUrl}/gpses`, this.requestHeaders)
+  async profile() {
+    return this.http.get(`${this.apiUrl}/users/profile`, this.getRequestHeaders())
+      .toPromise()
+      .then(response => response)
+      .catch(error => Promise.reject(error));
+  }
+
+  async logout() {
+    return this.http.post(`${this.apiUrl}/users/logout`, {}, this.getRequestHeaders())
+      .toPromise()
+      .then(response => response)
+      .catch(error => Promise.reject(error));
+  }
+
+  async getGpsIndex(page: number, perPage: number) {
+    const params = [
+      `page=${page}`,
+      `per_page=${perPage}`
+    ].join('&')
+
+    return this.http.get<any>(`
+    ${this.apiUrl}/gpses?${params}`,
+      this.getRequestHeaders()
+    )
       .toPromise()
       .then(response => response)
       .catch(error => Promise.reject(error));
   }
 
   async getGpsDetail(id: string | null) {
-    return await this.http.get<any>(`${this.apiUrl}/gpses/${id}`, this.requestHeaders)
+    return this.http.get<any>(`${this.apiUrl}/gpses/${id}`, this.getRequestHeaders())
       .toPromise()
       .then(response => response.data as GpsDetail)
       .catch(error => Promise.reject(error));
-  }
-
-  logout() {
-    return this.http.post(`${this.apiUrl}/users/logout`, {}, this.requestHeaders);
   }
 }

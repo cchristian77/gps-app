@@ -1,9 +1,22 @@
 import { Injectable } from '@angular/core';
+import {BehaviorSubject} from "rxjs";
+import {User} from "../interfaces/auth";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CookieService {
+
+  private authUserObject = new BehaviorSubject<User | null>(null);
+  public authUser$ = this.authUserObject.asObservable()
+
+  public setAuthUser(user: User | null) {
+    this.authUserObject.next(user);
+  }
+
+  public getAuthUser() {
+    return this.authUserObject.getValue();
+  }
 
   constructor() {}
 
@@ -20,11 +33,11 @@ export class CookieService {
         return c.substring(cookieName.length, c.length);
       }
     }
-    return '';
+    return null;
   }
 
-  public deleteCookie(cookieName: string) {
-    this.setCookie({ name: cookieName, value: '', expireDays: -1 });
+  public deleteCookie(name: string) {
+    this.setCookie({ name: name, value: '', expireDays: -1 });
   }
 
   /**

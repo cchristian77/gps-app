@@ -19,6 +19,7 @@ import {TableModule} from "primeng/table";
 import {RippleModule} from "primeng/ripple";
 import { ChartModule } from 'primeng/chart';
 import {FieldsetModule} from "primeng/fieldset";
+import {PaginatorModule} from "primeng/paginator";
 
 @NgModule({
   declarations: [
@@ -28,21 +29,22 @@ import {FieldsetModule} from "primeng/fieldset";
     RegisterComponent,
     DetailComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    CardModule,
-    InputTextModule,
-    ReactiveFormsModule,
-    ButtonModule,
-    HttpClientModule,
-    ToastModule,
-    BrowserAnimationsModule,
-    TableModule,
-    RippleModule,
-    ChartModule,
-    FieldsetModule
-  ],
+    imports: [
+      BrowserModule,
+      AppRoutingModule,
+      CardModule,
+      InputTextModule,
+      ReactiveFormsModule,
+      ButtonModule,
+      HttpClientModule,
+      ToastModule,
+      BrowserAnimationsModule,
+      TableModule,
+      RippleModule,
+      ChartModule,
+      FieldsetModule,
+      PaginatorModule
+    ],
   providers: [MessageService],
   bootstrap: [AppComponent]
 })

@@ -1,17 +1,34 @@
 <div class="grid">
   <div class="col-12">
     <div class="card">
+      <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+          <button
+            pButton
+            type="button"
+            class="p-button-secondary p-button-text"
+            label="Welcome"
+          ></button>
+          <button
+            pButton
+            type="button"
+            class="p-button p-button-danger"
+            label="Sign out"
+            (click)="logout()"
+          ></button>
+      </div>
+      <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+      </div>
+    </div>
+  <div class="col-12">
+    <div class="card">
       <h5>GPS Summary</h5>
       <p-table
         #dt1
         [value]="gpses"
         [tableStyle]="{ 'min-width': '60rem' }"
-        [paginator]="true"
-        [rows]="5"
-        [showCurrentPageReport]="true"
+        [rows]="perPage"
         [globalFilterFields]="['device_id','device_type']"
-        dataKey="device_id"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        dataKey="uuid"
         responsiveLayout="scroll"
       >
         <ng-template pTemplate="caption">
@@ -72,12 +89,20 @@
             <td colspan="4">No GPSs found.</td>
           </tr>
         </ng-template>
-        <ng-template [ngIf]="loading" pTemplate="loadingbody">
+        <ng-template pTemplate="loadingbody">
           <tr>
             <td colspan="4">Loading GPSs data. Please wait.</td>
           </tr>
         </ng-template>
       </p-table>
+      <p-paginator
+        [first]="first"
+        [rows]="perPage"
+        [showCurrentPageReport]="true"
+        [totalRecords]="pagination.total"
+        (onPageChange)="onPageChange($event)"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      />
     </div>
   </div>
 </div>
