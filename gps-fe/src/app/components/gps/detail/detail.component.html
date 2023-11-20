@@ -17,7 +17,7 @@
       <h5>Location History</h5>
       <p-fieldset legend="Location {{ location.name }}" [toggleable]="true" *ngFor="let location of gps.locations">
         <ul *ngFor="let timestamp of location.timestamps">
-          <li>{{ moment(timestamp).format("DD MMMM yyyy HH:mm") }}</li>
+          <li>{{ moment(timestamp).utc().format("DD MMMM yyyy HH:mm") }}</li>
         </ul>
       </p-fieldset>
     </div>

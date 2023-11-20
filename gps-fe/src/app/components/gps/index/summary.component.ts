@@ -49,7 +49,7 @@ export class SummaryComponent implements OnInit {
 
         // @ts-ignore
         this.gpses.forEach(
-          gps => gps.latest_timestamp = moment(gps.latest_timestamp).format("DD MMMM yyyy HH:mm"))
+          gps => gps.latest_timestamp = moment(gps.latest_timestamp).utc().format("DD MMMM yyyy HH:mm"))
       })
       .catch((error) => {
         console.log(error)
