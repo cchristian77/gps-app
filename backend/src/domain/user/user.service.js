@@ -24,6 +24,10 @@ export default class UserService {
     // encrypt password before storing to database
     request.password = await bcrypt.hash(request.password, 10)
 
+    // trim white space and lowercase username
+    request.username = request.username.trim().toLowerCase()
+    request.email =  request.email.trim().toLowerCase()
+
     request.uuid = uuid()
 
     return await userRepository.store(request)
@@ -52,6 +56,10 @@ export default class UserService {
     }
 
     request.password = await bcrypt.hash(request.password, 10);
+
+    // trim white space and lowercase username
+    request.username = request.username.trim().toLowerCase()
+    request.email =  request.email.trim().toLowerCase()
 
     await userRepository.update(request.id, request)
   }
